@@ -2,7 +2,7 @@ import numpy as np
 import PIL
 from PIL import ImageGrab
 #import cv2
-from directKeys import click, queryMousePosition, PressKey, ReleaseKey, SPACE
+from directKeys import click, queryMousePosition, PressKey, ReleaseKey, SPACE, moveMouseTo
 import time
 import math
 
@@ -20,21 +20,21 @@ rgbFive = (85, 0, 0) # rgb value for 5
 
 rgbClicked = (128, 128, 128) # rgb value for clicked in space
 rgbUnclicked = (85, 85, 85) # rgb value for the side of an unknown 
-rgbFlag = (58,22,22) # rgb value for the part of a flag my program sees
-rgbBomb = (8,8,8) # rgb value of the part of a bomb my program sees
+rgbFlag = (139,6,6) # rgb value for the part of a flag my program sees
+rgbBomb = (0,0,0) # rgb value of the part of a bomb my program sees
 
 
 # Begin the program if mouse position is on the left of the screen
 while True:
     mouse_pos = queryMousePosition()
     if mouse_pos.x <= 0:
+        time.sleep(1)
         break
 
 #def click_middle(screen):
     #click(board_coords[2]/2,board_coords[3]/2)
     
-gameBoard = [[0 for y in range(16)] for x in range(16)]
-
+gameBoard = [[0 for y in range(9)] for x in range(9)]
 
 num1s = 0
 num2s = 0
@@ -49,18 +49,118 @@ countY = 0
 countX = 0
 
 print("clicker is ready to go")
+
+first_click = [82,310]
+
+moveMouseTo(first_click[0]+3*pixel_increment, first_click[1]+2*pixel_increment)
+PressKey(SPACE)
+time.sleep(0.05)
+ReleaseKey(SPACE)
+
+moveMouseTo(first_click[0]+8*pixel_increment, first_click[1]+2*pixel_increment)
+PressKey(SPACE)
+time.sleep(0.05)
+ReleaseKey(SPACE)
+
+moveMouseTo(first_click[0]+6*pixel_increment, first_click[1]+5*pixel_increment)
+PressKey(SPACE)
+time.sleep(0.05)
+ReleaseKey(SPACE)
+
+moveMouseTo(first_click[0]+5*pixel_increment, first_click[1]+6*pixel_increment)
+PressKey(SPACE)
+time.sleep(0.05)
+ReleaseKey(SPACE)
+
+moveMouseTo(first_click[0]+1*pixel_increment, first_click[1]+8*pixel_increment)
+PressKey(SPACE)
+time.sleep(0.05)
+ReleaseKey(SPACE)
+
+moveMouseTo(first_click[0]+1*pixel_increment, first_click[1]+7*pixel_increment)
+PressKey(SPACE)
+time.sleep(0.05)
+ReleaseKey(SPACE)
+
+moveMouseTo(first_click[0]+1*pixel_increment, first_click[1]+5*pixel_increment)
+PressKey(SPACE)
+time.sleep(0.05)
+ReleaseKey(SPACE)
+
+moveMouseTo(first_click[0]+2*pixel_increment, first_click[1]+1*pixel_increment)
+PressKey(SPACE)
+time.sleep(0.05)
+ReleaseKey(SPACE)
+
+moveMouseTo(first_click[0]+7*pixel_increment, first_click[1]+3*pixel_increment)
+PressKey(SPACE)
+time.sleep(0.05)
+ReleaseKey(SPACE)
+
+moveMouseTo(first_click[0]+2*pixel_increment, first_click[1]+6*pixel_increment)
+PressKey(SPACE)
+time.sleep(0.05)
+ReleaseKey(SPACE)
+
+moveMouseTo(first_click[0]+6*pixel_increment, first_click[1]+7*pixel_increment)
+PressKey(SPACE)
+time.sleep(0.05)
+ReleaseKey(SPACE)
+
+moveMouseTo(first_click[0]+1*pixel_increment, first_click[1]+6*pixel_increment)
+PressKey(SPACE)
+time.sleep(0.05)
+ReleaseKey(SPACE)
+
+moveMouseTo(first_click[0]+8*pixel_increment, first_click[1]+6*pixel_increment)
+PressKey(SPACE)
+time.sleep(0.05)
+ReleaseKey(SPACE)
+
+moveMouseTo(first_click[0]+8*pixel_increment, first_click[1]+8*pixel_increment)
+PressKey(SPACE)
+time.sleep(0.05)
+ReleaseKey(SPACE)
+
+moveMouseTo(first_click[0]+0*pixel_increment, first_click[1]+7*pixel_increment)
+PressKey(SPACE)
+time.sleep(0.05)
+ReleaseKey(SPACE)
+
+moveMouseTo(first_click[0]+0*pixel_increment, first_click[1]+0*pixel_increment)
+PressKey(SPACE)
+time.sleep(0.05)
+ReleaseKey(SPACE)
+
+moveMouseTo(first_click[0]+7*pixel_increment, first_click[1]+6*pixel_increment)
+PressKey(SPACE)
+time.sleep(0.05)
+ReleaseKey(SPACE)
+
+moveMouseTo(first_click[0]+7*pixel_increment, first_click[1]+6*pixel_increment)
+PressKey(SPACE)
+time.sleep(0.05)
+ReleaseKey(SPACE)
+
+
 while True:
-    first_click = [118,324]
+    first_click = [82,310]
     mouse_pos = queryMousePosition()
     screen = np.array(ImageGrab.grab(bbox=board_coords))
-    for x in range (first_click[0],first_click[0]+(pixel_increment*16),pixel_increment):
-        for y in range (first_click[1],first_click[1]+(pixel_increment*16),pixel_increment):
+    
+    #moveMouseTo(first_click[0]+3*pixel_increment, first_click[1]+2*pixel_increment) 
+    
+    for x in range (first_click[0],first_click[0]+(pixel_increment*9),pixel_increment):
+        for y in range (first_click[1],first_click[1]+(pixel_increment*9),pixel_increment):
             pixel_rgb = PIL.ImageGrab.grab().load()[x,y]
             
-            click(x,y)
+            countX = int((x-82)/42)
+            countY = int((y-310)/42)
             
-            countX = int((x-118)/42)
-            countY = int((y-324)/42)
+            moveMouseTo(x,y)
+            #PressKey(SPACE)
+            #ReleaseKey(SPACE)
+
             
             #print(countX)
             #print(countY)
@@ -104,6 +204,7 @@ while True:
                 else:
                     gameBoard[countY][countX] = 0
                 x -= 19
+            
                     
     print(np.matrix(gameBoard))
     
@@ -118,17 +219,7 @@ while True:
     
     print("clicker is finished")
     
-    
     break
-
-
-
-
-
-
-
-
-
 
 
 
